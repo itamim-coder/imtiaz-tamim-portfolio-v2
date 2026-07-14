@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Local brand reference screenshots (not for deploy)
+public/brand/anish-ref-*.png
