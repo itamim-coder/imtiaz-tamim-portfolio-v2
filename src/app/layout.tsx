@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
-import { Fraunces, Outfit } from "next/font/google";
-import { AppShell } from "@/components/AppShell";
-import { Navbar } from "@/components/Navbar";
+import { Fraunces, Outfit, Geist } from "next/font/google";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
 import "./globals.css";
+
+const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
 const display = Fraunces({
   variable: "--font-display",
@@ -29,13 +31,15 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${display.variable} ${body.variable} h-full antialiased`}
+      className={cn(
+        "h-full antialiased",
+        display.variable,
+        body.variable,
+        geist.variable,
+      )}
     >
       <body className="min-h-full flex flex-col font-sans">
-        <AppShell>
-          <Navbar />
-          {children}
-        </AppShell>
+        <TooltipProvider>{children}</TooltipProvider>
       </body>
     </html>
   );

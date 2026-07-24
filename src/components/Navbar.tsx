@@ -1,14 +1,32 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { GeometricMark } from "./GeometricMark";
 import { LocalStatus } from "./LocalStatus";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+      if (totalHeight > 0) {
+        setScrollProgress((window.scrollY / totalHeight) * 100);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-line bg-background/80 backdrop-blur-md transition-colors duration-200">
+      {/* Scroll Progress Bar */}
+      <div
+        className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-accent via-emerald-500 to-indigo-500 transition-all duration-75"
+        style={{ width: `${scrollProgress}%` }}
+      />
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-6">
         {/* Brand Monogram */}
         <a
@@ -35,6 +53,12 @@ export function Navbar() {
             className="rounded-full px-3 py-1.5 font-sans text-xs font-semibold tracking-wide text-muted hover:text-foreground transition-colors duration-200"
           >
             About
+          </a>
+          <a
+            href="#skills"
+            className="rounded-full px-3 py-1.5 font-sans text-xs font-semibold tracking-wide text-muted hover:text-foreground transition-colors duration-200"
+          >
+            Skills
           </a>
           <a
             href="#contact"
@@ -103,6 +127,13 @@ export function Navbar() {
               className="font-sans text-sm font-bold uppercase tracking-wider text-muted hover:text-foreground py-2 border-b border-line/50 transition-colors duration-200"
             >
               About
+            </a>
+            <a
+              href="#skills"
+              onClick={() => setIsOpen(false)}
+              className="font-sans text-sm font-bold uppercase tracking-wider text-muted hover:text-foreground py-2 border-b border-line/50 transition-colors duration-200"
+            >
+              Skills
             </a>
             <a
               href="#contact"

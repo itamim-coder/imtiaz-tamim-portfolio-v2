@@ -16,12 +16,24 @@
 
 - Commit History (2024–2026) — pattern from **baghel.dev** via `react-github-calendar`; set `NEXT_PUBLIC_GITHUB_USERNAME`
 
-## Later (calendar)
+## Done (Jul 22)
 
-1. Hero + nav
-2. Selected work (Jetixia, **Kornest**, Cutco, EchoVoice, Canvasive)
-3. Case study pages
-4. Deploy on Vercel + imtiaztamim.com
+- **Hero copy** — “real traffic & real money”
+- **About section** — Hussam layout → `AboutSection.tsx` · `#about`
+- **MongoDB + admin dashboard** — shadcn UI at `/admin` · Projects / Blog / Experience / Settings
+- **Seed script** — `npm run seed` → `portfolio` database
+- **Reference locks** — Ilan (work) · Hussam (about) · djayanth.site (contact)
+
+See **`agent-context/portfolio/scan-2026-07-22.md`** for session wrap-up.  
+**Section references:** **`docs/portfolio-section-references.md`** — one doc per homepage section.
+
+## Next (Jul 23+)
+
+1. **Selected Work + Portfolio** — Ilan layout · MongoDB `featured` flag
+2. **Contact** — [djayanth.site](https://djayanth.site/) layout · `#contact`
+3. Case study **`/work/kornest`** or **`/work/jetixia`**
+4. Deploy when Work + Contact + ≥1 case study exist
+5. Public **`/blog`** routes + wire hero/about to CMS (optional)
 
 ## Run locally
 

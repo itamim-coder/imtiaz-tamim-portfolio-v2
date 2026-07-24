@@ -1,0 +1,39 @@
+---
+description: Homepage section titles — WORD · WORD pattern (nskr-style), no serials
+globs: src/components/**/*.tsx
+alwaysApply: false
+---
+
+# Section titles
+
+Every major homepage section uses the shared `SectionHeading` pattern:
+
+- Format: **TITLE · TITLE** (same word twice; first solid accent, second faded)
+- Uppercase, bold, teal accent (`text-accent`)
+- **No** serial index (`06 —— STACK`, `01`, etc.)
+- Parent section width: always `max-w-6xl px-6` so titles align across Work / About / Stack / Commits
+- Optional right slot only for badges/controls (e.g. `// PRODUCTION-TESTED`, year tabs)
+- Do not wrap `SectionHeading` in a narrower `max-w-*` than the section
+
+```tsx
+import { SectionHeading } from "@/components/SectionHeading";
+
+<SectionHeading id="skills-heading" title="Stack" end={/* optional */} />
+```
+
+## Examples
+
+| Section | `title` prop |
+|---------|----------------|
+| About | `About` |
+| Skills | `Stack` |
+| Commit History | `Commits` |
+| Selected Work | `Work` |
+| Contact | `Contact` |
+
+## Do not
+
+- Sentence-style or italic gradient section H2s for major sections
+- Certifications block on the Skills section (resume/LinkedIn only)
+- Hardcoding skills in `SkillsSection` — manage via `/admin/skills` + MongoDB
+- Mixing orange nskr colors — use site teal
