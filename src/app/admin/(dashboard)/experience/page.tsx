@@ -237,7 +237,7 @@ export default function AdminExperiencePage() {
             <ImageUpload
               label="Company logo"
               hint="Upload to Cloudinary or paste a URL"
-              value={form.logoUrl}
+              value={form.logoUrl ?? ""}
               onChange={(logoUrl) => setForm((prev) => ({ ...prev, logoUrl }))}
             />
 

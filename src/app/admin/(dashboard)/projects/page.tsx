@@ -22,6 +22,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
+import { ImageUpload } from "@/components/admin/ImageUpload";
 import {
   Select,
   SelectContent,
@@ -776,50 +777,33 @@ export default function AdminProjectsPage() {
               )}
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="space-y-1.5">
-                <Label htmlFor="imageUrl" className="text-xs font-bold uppercase tracking-wider text-muted">Poster / Cover Image URL</Label>
-                <div className="flex gap-2">
-                  <Input
-                    id="imageUrl"
-                    placeholder="https://…/project-thumbnail.png"
-                    className="rounded-xl border-line font-mono"
-                    value={form.imageUrl}
-                    onChange={(event) =>
-                      setForm((prev) => ({
-                        ...prev,
-                        imageUrl: event.target.value,
-                      }))
-                    }
-                  />
-                  {form.imageUrl && (
-                    <div className="h-10 w-16 overflow-hidden rounded-lg border border-line bg-muted shrink-0">
-                      <img src={form.imageUrl} alt="" className="h-full w-full object-cover" />
-                    </div>
-                  )}
-                </div>
-              </div>
-              <div className="space-y-1.5">
-                <Label htmlFor="videoUrl" className="text-xs font-bold uppercase tracking-wider text-muted">Background Loop Video (case studies header)</Label>
-                <div className="flex gap-2">
-                  <Input
-                    id="videoUrl"
-                    placeholder="https://…/background-video.mp4"
-                    className="rounded-xl border-line font-mono"
-                    value={form.videoUrl}
-                    onChange={(event) =>
-                      setForm((prev) => ({
-                        ...prev,
-                        videoUrl: event.target.value,
-                      }))
-                    }
-                  />
-                  {form.videoUrl && (
-                    <div className="flex h-10 w-10 items-center justify-center text-accent rounded-lg border border-line bg-line/10 shrink-0">
-                      <Video className="h-4.5 w-4.5 animate-pulse" />
-                    </div>
-                  )}
-                </div>
+            <ImageUpload
+              label="Poster / cover image"
+              hint="Upload to Cloudinary or paste a URL"
+              value={form.imageUrl ?? ""}
+              onChange={(imageUrl) => setForm((prev) => ({ ...prev, imageUrl }))}
+            />
+
+            <div className="space-y-1.5">
+              <Label htmlFor="videoUrl" className="text-xs font-bold uppercase tracking-wider text-muted">Background Loop Video (case studies header)</Label>
+              <div className="flex gap-2">
+                <Input
+                  id="videoUrl"
+                  placeholder="https://…/background-video.mp4"
+                  className="rounded-xl border-line font-mono"
+                  value={form.videoUrl}
+                  onChange={(event) =>
+                    setForm((prev) => ({
+                      ...prev,
+                      videoUrl: event.target.value,
+                    }))
+                  }
+                />
+                {form.videoUrl && (
+                  <div className="flex h-10 w-10 items-center justify-center text-accent rounded-lg border border-line bg-line/10 shrink-0">
+                    <Video className="h-4.5 w-4.5 animate-pulse" />
+                  </div>
+                )}
               </div>
             </div>
 
