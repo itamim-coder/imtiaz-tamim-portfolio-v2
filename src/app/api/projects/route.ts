@@ -70,3 +70,33 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Failed to create project" }, { status: 500 });
   }
 }
+
+export async function PUT(request: Request) {
+  if (!(await isAuthenticated())) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  try {
+    await connectDB();
+    const body = await request.json();
+    const { projects } = body;
+
+    if (!Array.isArray(projects)) {
+      return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
+    }
+
+    const bulkOps = projects.map((item: { _id: string; order: number }) => ({
+      updateOne: {
+        filter: { _id: item._id },
+        update: { $set: { order: Number(item.order) || 0 } },
+      },
+    }));
+
+    await Project.bulkWrite(bulkOps);
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    return NextResponse.json({ error: "Failed to reorder projects" }, { status: 500 });
+  }
+}
+

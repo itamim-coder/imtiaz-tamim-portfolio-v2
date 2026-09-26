@@ -42,7 +42,7 @@ function dayPart(date: Date): { label: string; emoji: string } {
 type Slide = 0 | 1 | 2;
 
 export function LocalStatus() {
-  const [now, setNow] = useState(() => new Date());
+  const [now, setNow] = useState<Date | null>(null);
   const [tempC, setTempC] = useState<number | null>(null);
   const [slide, setSlide] = useState<Slide>(0);
   const [helloIndex, setHelloIndex] = useState(0);
@@ -112,8 +112,8 @@ export function LocalStatus() {
     };
   }, []);
 
-  const time = formatDhakaTime(now);
-  const part = dayPart(now);
+  const time = now ? formatDhakaTime(now) : "—";
+  const part = now ? dayPart(now) : { label: "—", emoji: "" };
   const tempLabel = tempC !== null ? `${tempC}°C` : "—°C";
 
   return (

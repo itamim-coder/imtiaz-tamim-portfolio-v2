@@ -27,12 +27,20 @@
 See **`agent-context/portfolio/scan-2026-07-22.md`** for session wrap-up.  
 **Section references:** **`docs/portfolio-section-references.md`** — one doc per homepage section.
 
-## Next (Jul 23+)
+## Done (Jul 24–25)
 
-1. **Selected Work + Portfolio** — Ilan layout · MongoDB `featured` flag
-2. **Contact** — [djayanth.site](https://djayanth.site/) layout · `#contact`
-3. Case study **`/work/kornest`** or **`/work/jetixia`**
-4. Deploy when Work + Contact + ≥1 case study exist
+- **Skills STACK** — nskr layout · icon pills · `SectionHeading` · CMS `/admin/skills` · seed 32 skills
+- **Selected Work** — FlawlessNitin zig-zag · video slots · Live links (Jetixia / Kornest / Cutco)
+- **Case studies** — `/work/[slug]` with Role · Problem · Outcome · feature deep-dives (+ per-feature video slots)
+- **Refs locked** — nskr · FlawlessNitin · Nishmika · NewtonYuan
+- **Title alignment** — all sections `max-w-6xl` · WORK / ABOUT / STACK / COMMITS
+
+## Next
+
+1. **Contact** — [djayanth.site](https://djayanth.site/) · `#contact`
+2. Feature / hero **videos** + screenshots when ready
+3. Portfolio grid (non-featured) · Experience public section
+4. **Deploy** when Contact is ready
 5. Public **`/blog`** routes + wire hero/about to CMS (optional)
 
 ## Run locally

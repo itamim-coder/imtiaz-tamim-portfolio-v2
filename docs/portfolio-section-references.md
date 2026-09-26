@@ -17,14 +17,14 @@ Use this doc when building — **one section = one reference row**. Do not mix l
 | 2 | Selected Work | `#work` | ✅ Built (FlawlessNitin zig-zag · video · icons) |
 | 3 | Portfolio grid | `#portfolio` | ❌ Not built |
 | 4 | About | `#about` | ✅ Built |
-| 5 | Experience | `#experience` | ❌ Not built |
+| 5 | Experience | `#experience` | ✅ Built |
 | 6 | Skills | `#skills` | ✅ Built (nskr + icons · no certs) |
 | 7 | Commit History | `#commit-history` | ✅ Built |
-| 8 | Blog | `#blog` / `/blog` | ❌ Admin only |
+| 8 | Blog | `#blog` / `/blog` | ✅ Built |
 | 9 | Contact | `#contact` | ❌ Not built |
-| 10 | Case studies | `/work/[slug]` | ❌ Later |
+| 10 | Case studies | `/work/[slug]` | ✅ Built (features + video slots) |
 
-**Current homepage:** Loader → Hero → **Selected Work** → About → Skills → Commit History
+**Current homepage:** Loader → Hero → Selected Work → Portfolio → About → **Experience** → Skills → Commits → Contact
 
 ---
 
@@ -179,8 +179,9 @@ Jetixia · Kornest · Cutco · EchoVoice · Canvasive (+ Moynaa optional)
 
 | | |
 |---|---|
-| **Status** | ❌ Not built (admin CRUD ✅) |
+| **Status** | ✅ Built |
 | **Anchor** | `#experience` |
+| **Component** | `src/components/ExperienceSection.tsx` |
 | **Primary reference** | [kamilmazurek.pl](https://kamilmazurek.pl/#top) |
 | **Data** | MongoDB `Experience` · admin `/admin/experience` |
 
@@ -191,8 +192,8 @@ Jetixia · Kornest · Cutco · EchoVoice · Canvasive (+ Moynaa optional)
 - Optional: location · Remote
 
 ### Our entries (seed)
-- **TrustGuid** — Cutco, EchoVoice, Canvasive
-- **Jetixia / Booking Desk** — Jetixia platform, Kornest
+- **Jetixia / Booking Desk** — 2024 – Present (current)
+- **TrustGuid** — Apr 2025 – Sep 2026 (ended)
 - **Moynaa** — optional third row
 
 ### Do not duplicate
@@ -251,7 +252,7 @@ Jetixia · Kornest · Cutco · EchoVoice · Canvasive (+ Moynaa optional)
 
 | | |
 |---|---|
-| **Status** | ❌ Public routes not built · admin CRUD ✅ |
+| **Status** | ✅ Built (`BlogSection` · `/blog` · Cloudinary upload) |
 | **Routes** | `/blog` · `/blog/[slug]` (planned) |
 | **Data** | MongoDB `BlogPost` · admin `/admin/blog` |
 | **Reference** | No single locked site — general section rhythm from collected list |
@@ -290,17 +291,20 @@ Jetixia · Kornest · Cutco · EchoVoice · Canvasive (+ Moynaa optional)
 
 ---
 
-## 10. Case studies (later)
+## 10. Case studies
 
 | | |
 |---|---|
-| **Status** | ❌ Not built |
-| **Routes** | `/work/jetixia` · `/work/kornest` · `/work/cutco` |
-| **Reference** | Extend **Ilan** case-study link pattern from Selected Work cards |
+| **Status** | ✅ Built |
+| **Routes** | `/work/[slug]` · e.g. `/work/kornest` |
+| **Layout** | Overview · Role / Problem / Outcome · **Features** zig-zag (details + highlights + video slot) |
+| **Videos** | Per-feature `videoUrl` for cut-by-cut demos later · empty = placeholder |
+| **CMS** | `/admin/projects` — features JSON · role · problem · outcome |
 
-### Priority
-1. Kornest (LinkedIn proof — mediasoup + workspace)
-2. Jetixia or Cutco
+### Seeded depth
+1. **Jetixia** — 5 features (suppliers, unified booking, YBS, FIB, verticals)
+2. **Kornest** — 6 features (Kanban, chat, docs, mediasoup, leave, VPS ops)
+3. **Cutco** — 5 features (compare, switch, web, mobile, shared backend)
 
 ---
 
@@ -356,7 +360,7 @@ Jetixia · Kornest · Cutco · EchoVoice · Canvasive (+ Moynaa optional)
 | Selected Work | flawlessnitin.com/#projects · video + icons | ✅ |
 | Portfolio | ilans.net (02) | ❌ |
 | About | Hussam Vercel | ✅ |
-| Experience | kamilmazurek.pl | ❌ |
+| Experience | kamilmazurek.pl | ✅ |
 | Skills | nskr.dev · CMS `/admin/skills` | ✅ |
 | Commit History | baghel.dev | ✅ |
 | Contact | djayanth.site | ❌ |

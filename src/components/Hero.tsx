@@ -2,7 +2,7 @@
 
 import { useState, MouseEvent } from "react";
 
-const EMAIL = "hello@imtiaztamim.com";
+const EMAIL = "itamim12202@gmail.com";
 
 export function Hero() {
   const [copied, setCopied] = useState(false);
@@ -38,17 +38,23 @@ export function Hero() {
       {/* Soft corner / oval washes — keep current design */}
       <div
         className="pointer-events-none absolute top-0 left-0 z-0 h-[400px] w-[400px] select-none rounded-full bg-gradient-to-br from-amber-200/10 via-orange-100/5 to-transparent blur-[80px] sm:h-[600px] sm:w-[600px] sm:blur-[120px] transition-transform duration-300 ease-out"
-        style={{ transform: `translate(calc(-25% + ${mouseOffset.x}px), calc(-25% + ${mouseOffset.y}px))` }}
+        style={{
+          transform: `translate(calc(-25% + ${mouseOffset.x}px), calc(-25% + ${mouseOffset.y}px))`,
+        }}
         aria-hidden
       />
       <div
         className="pointer-events-none absolute top-0 right-0 z-0 h-[400px] w-[400px] select-none rounded-full bg-gradient-to-bl from-amber-200/10 via-orange-100/5 to-transparent blur-[80px] sm:h-[600px] sm:w-[600px] sm:blur-[120px] transition-transform duration-300 ease-out"
-        style={{ transform: `translate(calc(25% + ${mouseOffset.x}px), calc(-25% + ${mouseOffset.y}px))` }}
+        style={{
+          transform: `translate(calc(25% + ${mouseOffset.x}px), calc(-25% + ${mouseOffset.y}px))`,
+        }}
         aria-hidden
       />
       <div
         className="pointer-events-none absolute top-[45%] left-1/2 z-0 h-[280px] w-[90%] max-w-[650px] select-none rounded-full bg-gradient-to-r from-violet-500/12 via-fuchsia-500/8 to-indigo-500/12 blur-[80px] sm:h-[380px] sm:w-[70%] sm:blur-[110px] transition-transform duration-300 ease-out"
-        style={{ transform: `translate(calc(-50% + ${mouseOffset.x * 1.5}px), calc(-50% + ${mouseOffset.y * 1.5}px))` }}
+        style={{
+          transform: `translate(calc(-50% + ${mouseOffset.x * 1.5}px), calc(-50% + ${mouseOffset.y * 1.5}px))`,
+        }}
         aria-hidden
       />
 

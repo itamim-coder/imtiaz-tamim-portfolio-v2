@@ -1,7 +1,7 @@
-import { Code2 } from "lucide-react";
 import { SectionHeading } from "@/components/SectionHeading";
 import { connectDB } from "@/lib/mongodb";
 import { Skill } from "@/models/Skill";
+import { SkillIcon } from "@/components/SkillIcon";
 
 type SkillPill = {
   name: string;
@@ -37,25 +37,6 @@ function groupSkills(
     .map(({ title, skills }) => ({ title, skills }));
 }
 
-function SkillIcon({ slug, name }: { slug: string; name: string }) {
-  if (!slug) {
-    return <Code2 className="h-5 w-5 shrink-0 text-accent" aria-hidden />;
-  }
-
-  return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
-      src={`https://cdn.simpleicons.org/${slug}`}
-      alt=""
-      width={20}
-      height={20}
-      className="h-5 w-5 shrink-0"
-      loading="lazy"
-      decoding="async"
-      title={name}
-    />
-  );
-}
 
 export async function SkillsSection() {
   await connectDB();
@@ -96,7 +77,7 @@ export async function SkillsSection() {
                 {category.skills.map((skill) => (
                   <li key={skill.name}>
                     <span className="inline-flex items-center gap-2 rounded-full border border-line bg-background px-3.5 py-2 font-mono text-sm font-medium text-foreground transition-colors hover:border-accent/35 hover:bg-accent/5">
-                      <SkillIcon slug={skill.icon} name={skill.name} />
+                      <SkillIcon icon={skill.icon} name={skill.name} />
                       {skill.name}
                     </span>
                   </li>

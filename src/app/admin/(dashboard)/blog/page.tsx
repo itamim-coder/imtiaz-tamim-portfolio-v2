@@ -22,6 +22,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
+import { ImageUpload } from "@/components/admin/ImageUpload";
 
 type BlogPost = {
   _id: string;
@@ -30,6 +31,7 @@ type BlogPost = {
   excerpt: string;
   content: string;
   tags: string[];
+  coverImage?: string;
   published: boolean;
 };
 
@@ -39,6 +41,7 @@ const emptyPost = {
   excerpt: "",
   content: "",
   tags: [] as string[],
+  coverImage: "",
   published: false,
 };
 
@@ -81,6 +84,7 @@ export default function AdminBlogPage() {
       excerpt: post.excerpt,
       content: post.content,
       tags: post.tags,
+      coverImage: post.coverImage ?? "",
       published: post.published,
     });
     setTagsInput(post.tags.join(", "));
@@ -119,7 +123,7 @@ export default function AdminBlogPage() {
         <div>
           <h1 className="text-3xl font-semibold tracking-tight">Blog</h1>
           <p className="mt-2 text-muted-foreground">
-            Write posts for clients and recruiters. Unpublished posts stay as drafts.
+            Write posts for clients and recruiters. Upload covers via Cloudinary.
           </p>
         </div>
         <Button onClick={openCreate}>
@@ -196,6 +200,12 @@ export default function AdminBlogPage() {
                 />
               </div>
             </div>
+            <ImageUpload
+              label="Cover image"
+              hint="Upload to Cloudinary or paste a URL"
+              value={form.coverImage}
+              onChange={(coverImage) => setForm((prev) => ({ ...prev, coverImage }))}
+            />
             <div className="space-y-2">
               <Label htmlFor="excerpt">Excerpt</Label>
               <Textarea
@@ -207,7 +217,7 @@ export default function AdminBlogPage() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="content">Content (Markdown supported later)</Label>
+              <Label htmlFor="content">Content</Label>
               <Textarea
                 id="content"
                 className="min-h-40"

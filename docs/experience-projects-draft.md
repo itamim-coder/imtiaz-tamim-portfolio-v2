@@ -21,14 +21,12 @@ Products in this role: Cutco, EchoVoice, Canvasive.
 
 ---
 
-### Full-Stack Product Engineer · Jetixia / Booking Desk  
+### Full-Stack Product Engineer · Jetixia  
 **Remote · 2024 – Present**
 
-Build and maintain B2B travel booking infrastructure and internal team tooling. Own multi-supplier hotel integrations, payment flows, and VPS production (nginx, systemd, monitoring).
+Own the white-label B2B travel platform wholesalers rebrand and run under their own domains. Ship multi-vertical booking (hotels, flights, transfers, activities, extranet) and payment-gateway integrations requested per wholesaler. Operate production on VPS (nginx, systemd, monitoring). Also ship **Kornest** — Jetixia’s multi-tenant team collaboration SaaS product (not an internal-only tool).
 
-Products in this role: Jetixia booking platform, Kornest.
-
-`Node.js` `Express` `MongoDB` `Microservices` `YBS` `FIB` `mediasoup` `Prometheus` `Grafana`
+`Node.js` `Express` `MongoDB` `Microservices` `YBS` `FIB` `Stripe` `mediasoup` `Prometheus` `Grafana`
 
 ---
 
@@ -43,12 +41,12 @@ Led MVP from prototype to production; drove prioritization and delivery across w
 
 ## Projects
 
-### Jetixia — B2B travel booking  
-**Jetixia / Booking Desk**
+### Jetixia — White-label B2B travel platform  
+**Jetixia · e.g. bdesktravel.com · flywinbookings**
 
-Multi-supplier hotel (and travel vertical) booking for agencies. Unified search and booking across 10+ supplier APIs with different JSON shapes; custom **YBS** and **FIB** payment integrations.
+One white-label booking product. Hostname branding per wholesaler. Hotels (10+ suppliers), flights, transfers, activities, extranet, hotel mapping. Payment gateways (**YBS**, **FIB**, **Stripe**) configured per wholesaler request.
 
-`Node.js` `Express` `MongoDB` `YBS` `FIB` `HotelBeds` `IRIX` `HyperGuest`
+`Node.js` `Express` `MongoDB` `YBS` `FIB` `Stripe` `HotelBeds` `IRIX` `HyperGuest` `Sabre`
 
 <!-- Link: case study later · live if public -->
 

@@ -11,7 +11,7 @@ Structured summary of production work found on `D:/` (Jul 2026 scan).
 | **Cutco** (TrustGuid) | `D:/Cutco/` | Australian energy comparison & switching platform |
 | **EchoVoice / Sonic** (TrustGuid) | `D:/sonic-agent-builder/` | AI voice agent SaaS |
 | **Canvasive** (TrustGuid) | `D:/Canvasive/` | AI marketing automation |
-| **Booking Desk / Jetixia** | `D:/Booking_Desk/` | B2B travel booking ecosystem; custom YBS + FIB payments |
+| **Booking Desk / Jetixia** | `D:/Booking_Desk/` | White-label B2B travel platform; per-wholesaler branding + payment gateways |
 | **Kornest** (Jetixia) | `D:/Booking_Desk/tasks-sys-V2/` | Team collab SaaS — Kanban, chat, docs, video, leave HR; Prometheus/Grafana |
 
 ---
@@ -29,16 +29,30 @@ Structured summary of production work found on `D:/` (Jul 2026 scan).
 
 ## Booking Desk / Jetixia
 
-**Path:** `D:/Booking_Desk/bookingdesk/`
+**Paths:**
+- Frontend: `D:/Booking_Desk/bookingdesk/` (Next.js — hostname → wholesaler branding)
+- Core backend: `D:/Booking_Desk/bookingdesk-backend 6/`
+- Flights: `D:/Booking_Desk/jetixia-air/` (Sabre / Amadeus / Travelport work)
+- Transfers: `D:/Booking_Desk/jetixia-transfer-backend/`
+- Activities: `D:/Booking_Desk/jetixia-activity-backend/`
+- Events: `D:/Booking_Desk/jetixia-event-backend/`
+- Extranet: `D:/Booking_Desk/Jetixia-Extranet/`
+- Hotel mapping: `D:/Booking_Desk/jetixia-hotel-mapping/`
+- Dashboard: `D:/Booking_Desk/jetixia-system-dashboard-backend/`
+- Payments folder: `D:/Booking_Desk/ybs payment/`
 
-**What it is:** B2B travel marketplace — hotels, flights, transfers, activities, payments.
+**What it is:** White-label B2B travel platform. One codebase serves multiple wholesalers under their own domains/brands (e.g. **bdesktravel.com**, **flywinbookings**) — branding resolved from hostname.
 
-**Key themes:**
-- 10+ hotel supplier APIs (HotelBeds, IRIX, HyperGuest, TGX, etc.)
-- Unified response format across different supplier JSON shapes
-- Microservices across travel verticals
+**Verticals:** hotels · flights · transfers / transport · activities · extranet · hotel mapping · events · system dashboard
 
-**Strong LinkedIn post:** "I unified 10 hotel APIs into one response format"
+**Hotels:** 10+ supplier APIs (HotelBeds, IRIX, HyperGuest, TGX, etc.) normalized into one search/book contract.
+
+**Payments:** Gateway adapters (**YBS**, **FIB / First Iraqi Bank**, **Stripe**) configured **per wholesaler** (`WholesalerPaymentGatewayConfig`) — not one hard-coded checkout for the whole platform.
+
+**Strong LinkedIn angles:**
+- “Same white-label booking desk, different wholesaler brands”
+- “Payment gateway chosen by wholesaler request (YBS / FIB / Stripe)”
+- “I unified 10 hotel APIs into one response format”
 
 ---
 

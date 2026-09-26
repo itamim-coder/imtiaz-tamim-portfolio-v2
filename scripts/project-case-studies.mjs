@@ -4,83 +4,83 @@
  */
 export const projectCaseStudies = {
   jetixia: {
-    role: "Full-stack product engineer — architecture through production for the B2B travel booking platform.",
+    role: "Full-stack product engineer — architecture through production for the white-label B2B travel platform.",
     problem:
-      "Travel suppliers speak different API dialects. Agents needed one booking desk that could search, quote, and pay without rewriting every supplier integration by hand.",
+      "Travel wholesalers needed one booking product they could rebrand under their own domain, with hotels plus flights/transfers/activities, and payment gateways chosen per market — not a one-off site per wholesaler.",
     outcome:
-      "A production booking platform that normalizes 10+ hotel suppliers into one response shape, with custom YBS and FIB payment flows that settle under real traffic.",
-    longDescription: `Jetixia is the B2B travel booking platform I built and own end-to-end — hotels, flights, transfers, activities, and payments for agency workflows.
+      "A white-label platform (e.g. BDesk Travel, FlyWin Bookings) that normalizes 10+ hotel suppliers, covers multi-vertical booking, and enables YBS / FIB / Stripe gateways configured per wholesaler.",
+    longDescription: `Jetixia is the white-label B2B travel booking platform I build and own end-to-end. The same product runs under different wholesaler brands and domains — branding resolved from hostname — so BDesk Travel and FlyWin Bookings are the same codebase, not separate apps.
 
-The hard part was never a single endpoint. It was making HotelBeds, IRIX, HyperGuest, TGX, and others look like one product: consistent search results, bookable rates, and error handling that agents can trust when a supplier flakes mid-booking.
+Verticals include hotels, flights, transfers, activities, extranet, hotel mapping, events, and ops dashboard services. Hotels alone span 10+ supplier APIs (HotelBeds, IRIX, HyperGuest, TGX, and more) normalized into one search/book contract.
 
-Payments were treated as first-class product work, not a plugin. YBS and FIB flows are wired for the markets we serve, with the same production discipline as the booking path — monitoring, retries, and clear failure states.`,
+Payments are gateway adapters — YBS, FIB (First Iraqi Bank), and Stripe — configured per wholesaler request via wholesaler payment-gateway config, not a single hard-coded checkout for the whole platform.`,
     features: [
+      {
+        title: "White-label wholesaler branding",
+        summary:
+          "One product, many wholesaler brands — hostname resolves logo, name, and site content.",
+        details:
+          "Agencies hit wholesaler-specific domains. The platform loads wholesaler branding server-side so each site looks like that wholesaler’s product while sharing the same booking stack.",
+        highlights: [
+          "Hostname → wholesaler branding",
+          "Shared codebase across wholesaler domains",
+          "Examples: bdesktravel.com, flywinbookings",
+        ],
+        videoUrl: "",
+        order: 1,
+      },
       {
         title: "Multi-supplier hotel API unification",
         summary:
           "Ten-plus hotel suppliers behind one integration surface instead of ten separate agent experiences.",
         details:
-          "Each supplier returns different JSON shapes, rate rules, and cancellation semantics. I built adapters that normalize availability, pricing, and room content into a shared contract so the booking desk UI and downstream services stay stable when a supplier changes.",
+          "Each supplier returns different JSON shapes, rate rules, and cancellation semantics. Adapters normalize availability, pricing, and room content into a shared contract so the desk UI and downstream services stay stable when a supplier changes.",
         highlights: [
           "Adapters for HotelBeds, IRIX, HyperGuest, TGX, and more",
           "Shared search / quote / book contract across suppliers",
           "Graceful degradation when one supplier is slow or down",
         ],
         videoUrl: "",
-        order: 1,
+        order: 2,
+      },
+      {
+        title: "Multi-vertical booking stack",
+        summary:
+          "Hotels plus flights, transfers, activities, extranet, and hotel mapping — not hotels-only.",
+        details:
+          "Separate backends and services cover air, transfer/transport, activity, extranet inventory, hotel mapping, events, and system dashboard — wired into the same wholesaler/agency platform.",
+        highlights: [
+          "Flights, transfers, activities alongside hotels",
+          "Extranet + hotel mapping for inventory ops",
+          "Microservices across travel verticals",
+        ],
+        videoUrl: "",
+        order: 3,
+      },
+      {
+        title: "Per-wholesaler payment gateways",
+        summary:
+          "YBS, FIB, and Stripe as gateway adapters — enabled per wholesaler request.",
+        details:
+          "WholesalerPaymentGatewayConfig stores which gateways a wholesaler uses, credentials, default gateway, and test/live mode. Adapters handle initiation and webhooks so booking payment state stays consistent.",
+        highlights: [
+          "Gateways: YBS, FIB (First Iraqi Bank), Stripe",
+          "Configured per wholesaler, not hard-coded globally",
+          "Webhook / lifecycle handling in production",
+        ],
+        videoUrl: "",
+        order: 4,
       },
       {
         title: "Unified booking response",
         summary:
           "One clean response format for the desk — agents never see raw supplier payloads.",
         details:
-          "Booking confirmation, passenger data, and rate metadata are remapped into a single response the frontend and partner APIs can rely on. That keeps reporting, vouchers, and support tooling consistent even when suppliers disagree on field names.",
+          "Booking confirmation, passenger data, and rate metadata are remapped into a single response the frontend and partner APIs can rely on.",
         highlights: [
           "Normalized booking + voucher payload",
           "Consistent error taxonomy for agents",
-          "Easier partner / white-label consumption later",
-        ],
-        videoUrl: "",
-        order: 2,
-      },
-      {
-        title: "Custom YBS payment flow",
-        summary:
-          "Market-specific YBS payments built into the booking path, not bolted on after checkout.",
-        details:
-          "YBS is integrated where the business needs it — status callbacks, failure recovery, and booking state updates so a paid booking and an unpaid hold never drift out of sync.",
-        highlights: [
-          "Payment state tied to booking lifecycle",
-          "Callback / webhook handling in production",
-          "Clear agent-facing success and failure states",
-        ],
-        videoUrl: "",
-        order: 3,
-      },
-      {
-        title: "Custom FIB payment flow",
-        summary:
-          "FIB payments for the regions that require it — same production bar as YBS.",
-        details:
-          "FIB is another first-class payment rail: initiation, confirmation, and reconciliation against the booking record so finance and ops can audit what actually settled.",
-        highlights: [
-          "Region-specific payment rail support",
-          "Reconciliation-friendly booking payment records",
-          "Designed for live traffic, not demo checkouts",
-        ],
-        videoUrl: "",
-        order: 4,
-      },
-      {
-        title: "Travel verticals beyond hotels",
-        summary:
-          "Flights, transfers, and activities as part of the same B2B desk ecosystem.",
-        details:
-          "The platform is structured so hotels are not the only SKU. Flights, transfers, and activities plug into the same operational patterns — search, book, pay — so agencies get one workspace instead of fragmented tools.",
-        highlights: [
-          "Multi-vertical booking desk architecture",
-          "Shared patterns across product lines",
-          "Built for agency / B2B workflows",
+          "Easier partner / white-label consumption",
         ],
         videoUrl: "",
         order: 5,

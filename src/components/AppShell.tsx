@@ -2,7 +2,6 @@
 
 import { useCallback, useState, useEffect } from "react";
 import { InitialLoader } from "./InitialLoader";
-import { SocialSidebar } from "./SocialSidebar";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const [ready, setReady] = useState(false);
@@ -16,6 +15,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     const handleScroll = () => {
       setShowScrollTop(window.scrollY > 400);
     };
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -29,7 +29,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       >
         {children}
       </div>
-      {ready && <SocialSidebar />}
       {ready && showScrollTop && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}

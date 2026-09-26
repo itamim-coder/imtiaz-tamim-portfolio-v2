@@ -80,6 +80,20 @@ const settingsSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
+const blogSchema = new mongoose.Schema(
+  {
+    title: String,
+    slug: { type: String, unique: true },
+    excerpt: String,
+    content: String,
+    tags: [String],
+    coverImage: String,
+    published: Boolean,
+    publishedAt: Date,
+  },
+  { timestamps: true },
+);
+
 const skillSchema = new mongoose.Schema(
   {
     name: String,
@@ -92,12 +106,15 @@ const skillSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-const Project = mongoose.models.Project || mongoose.model("Project", projectSchema);
+const Project =
+  mongoose.models.Project || mongoose.model("Project", projectSchema);
 const Experience =
   mongoose.models.Experience || mongoose.model("Experience", experienceSchema);
 const SiteSettings =
-  mongoose.models.SiteSettings || mongoose.model("SiteSettings", settingsSchema);
+  mongoose.models.SiteSettings ||
+  mongoose.model("SiteSettings", settingsSchema);
 const Skill = mongoose.models.Skill || mongoose.model("Skill", skillSchema);
+const BlogPost = mongoose.models.BlogPost || mongoose.model("BlogPost", blogSchema);
 
 const projects = [
   {
@@ -172,8 +189,10 @@ const projects = [
     year: "2026",
     category: "AI Voice · SaaS",
     statusLabel: "In Production",
-    shortDescription: "AI voice agent SaaS with Vapi/Twilio telephony orchestration.",
-    highlight: "Telephony orchestration that stays debuggable when calls go wrong.",
+    shortDescription:
+      "AI voice agent SaaS with Vapi/Twilio telephony orchestration.",
+    highlight:
+      "Telephony orchestration that stays debuggable when calls go wrong.",
     longDescription:
       "EchoVoice is TrustGuid’s AI voice agent SaaS — Vapi/Twilio telephony orchestration for production calling workflows.",
     problem:
@@ -187,13 +206,17 @@ const projects = [
         summary: "Configure and ship AI voice agents for real calling flows.",
         details:
           "Agent configuration and runtime paths aimed at production calls, not just playground demos.",
-        highlights: ["Agent configuration UI/API", "Production-oriented call flows"],
+        highlights: [
+          "Agent configuration UI/API",
+          "Production-oriented call flows",
+        ],
         videoUrl: "",
         order: 1,
       },
       {
         title: "Vapi + Twilio orchestration",
-        summary: "Telephony rails wired so agents can dial and respond reliably.",
+        summary:
+          "Telephony rails wired so agents can dial and respond reliably.",
         details:
           "Vapi and Twilio are integrated as the voice/telephony backbone with debuggable failure states.",
         highlights: ["Vapi agent runtime", "Twilio telephony path"],
@@ -217,8 +240,10 @@ const projects = [
     year: "2026",
     category: "Marketing · Automation",
     statusLabel: "In Production",
-    shortDescription: "AI marketing automation with n8n-orchestrated campaign pipelines.",
-    highlight: "Campaign pipelines that operators can actually change without a deploy.",
+    shortDescription:
+      "AI marketing automation with n8n-orchestrated campaign pipelines.",
+    highlight:
+      "Campaign pipelines that operators can actually change without a deploy.",
     longDescription:
       "Canvasive is TrustGuid’s AI marketing automation product — creative tooling plus n8n-orchestrated campaign pipelines operators can adjust.",
     problem:
@@ -238,7 +263,8 @@ const projects = [
       },
       {
         title: "Creative + automation surface",
-        summary: "React app with Supabase backend and Polotno creative tooling.",
+        summary:
+          "React app with Supabase backend and Polotno creative tooling.",
         details:
           "Product UI for marketing workflows sitting on Supabase, with creative editing via Polotno where needed.",
         highlights: ["React + Supabase", "Polotno creative integration"],
@@ -258,25 +284,31 @@ const projects = [
 const experiences = [
   {
     role: "Full-Stack Product Engineer",
-    company: "TrustGuid",
+    company: "Jetixia / Booking Desk",
     location: "Remote",
-    startDate: "2024",
+    websiteUrl: "https://www.bdesktravel.com/",
+    logoUrl: "",
+    startDate: "2024-01",
+    endDate: "",
     current: true,
     description:
-      "Own end-to-end delivery across Cutco, EchoVoice, and Canvasive — architecture through production deploys.",
-    tags: ["Next.js", "React Native", "Node.js", "PostgreSQL"],
+      "Own the white-label B2B travel platform wholesalers rebrand and run under their own domains — multi-vertical booking, per-wholesaler payment gateways, and VPS production. Also ship Kornest, Jetixia’s multi-tenant team collaboration SaaS.",
+    tags: ["Node.js", "Express", "MongoDB", "mediasoup"],
     order: 1,
     published: true,
   },
   {
     role: "Full-Stack Product Engineer",
-    company: "Jetixia / Booking Desk",
+    company: "TrustGuid",
     location: "Remote",
-    startDate: "2024",
-    current: true,
+    websiteUrl: "",
+    logoUrl: "",
+    startDate: "2025-04",
+    endDate: "2026-09",
+    current: false,
     description:
-      "B2B travel booking infrastructure, multi-supplier integrations, payments, and Kornest team tooling.",
-    tags: ["Node.js", "Express", "MongoDB", "mediasoup"],
+      "Hired as Mobile & Backend; grew into full-stack ownership across web, mobile, and automation products — Cutco, EchoVoice, and Canvasive — from architecture through production deploys.",
+    tags: ["Next.js", "React Native", "Prisma", "Expo"],
     order: 2,
     published: true,
   },
@@ -366,16 +398,92 @@ const skillCategories = [
   },
 ];
 
-const skills = skillCategories.flatMap(({ category, categoryOrder, skills: list }) =>
-  list.map((skill, index) => ({
-    name: skill.name,
-    icon: skill.icon,
-    category,
-    categoryOrder,
-    order: index + 1,
-    published: true,
-  })),
+const skills = skillCategories.flatMap(
+  ({ category, categoryOrder, skills: list }) =>
+    list.map((skill, index) => ({
+      name: skill.name,
+      icon: skill.icon,
+      category,
+      categoryOrder,
+      order: index + 1,
+      published: true,
+    })),
 );
+
+const blogPosts = [
+  {
+    title: "Ten supplier APIs, one booking response",
+    slug: "ten-supplier-apis-one-booking-response",
+    excerpt:
+      "How Jetixia unifies HotelBeds, IRIX, HyperGuest and the rest into one clean booking contract wholesalers can actually ship.",
+    content: `Wholesalers do not want ten JSON shapes. They want one booking call that either confirms or fails with a reason they can show a customer.
+
+## The problem
+
+Jetixia sits in front of hotel, flight, transfer, and activity suppliers. Each vendor has its own auth, availability, and error codes. Mapping that in the UI does not scale.
+
+## What I shipped
+
+A unification layer in Node/Express that normalizes search, pricing, and booking into one response. Payments (YBS, FIB, Stripe) attach per wholesaler instead of living in the supplier adapters.
+
+## Why it matters
+
+The product can add a supplier without rewriting the booking desk. That is the difference between a demo and production traffic.`,
+    tags: ["Jetixia", "APIs", "Node.js"],
+    coverImage:
+      "https://images.unsplash.com/photo-1488085061387-422e29b40080?auto=format&fit=crop&w=1600&q=80",
+    published: true,
+    publishedAt: new Date("2026-07-12"),
+  },
+  {
+    title: "Self-hosting mediasoup instead of renting video",
+    slug: "self-hosting-mediasoup-instead-of-renting-video",
+    excerpt:
+      "Kornest runs team video on a VPS — systemd, nginx, Prometheus — because the last mile was the product.",
+    content: `Managed SFUs are easy until the invoice and the feature wall show up. Kornest needed meetings inside the same workspace as Kanban, chat, and docs.
+
+## The choice
+
+I deployed mediasoup on a Hetzner VPS. nginx terminates TLS. systemd keeps the process up. Prometheus and Grafana watch the box.
+
+## What broke first
+
+TURN, idle sockets, and disk on replay logs. Those are ops problems, not React problems — and they only show up after people actually join a call.
+
+## Outcome
+
+Video is a first-class surface of the SaaS, not a third-party iframe. That ownership is the case study.`,
+    tags: ["Kornest", "WebRTC", "VPS"],
+    coverImage:
+      "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1600&q=80",
+    published: true,
+    publishedAt: new Date("2026-08-03"),
+  },
+  {
+    title: "One backend, two clients: Cutco web and mobile",
+    slug: "one-backend-two-clients-cutco",
+    excerpt:
+      "Australian energy compare-and-switch shipped as Next.js and Expo on a shared Prisma API — no fake live demo after the project closed.",
+    content: `Cutco needed households to compare plans and start a switch on the phone and on the desktop without two products drifting apart.
+
+## Shared contract
+
+Prisma/PostgreSQL held users, plans, and switch state. Next.js rendered the web SaaS. Expo reused the same flows for auth, bills, and status.
+
+## What I will not claim
+
+The old Vercel demo is not a live product. The work is the architecture and the shipping, not a URL that 404s.
+
+## Takeaway
+
+If the mobile app and the web app disagree, users bounce. One backend is how you keep them honest.`,
+    tags: ["Cutco", "Next.js", "Expo"],
+    coverImage:
+      "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1600&q=80",
+    published: true,
+    publishedAt: new Date("2026-09-08"),
+  },
+];
 
 async function seed() {
   await mongoose.connect(MONGODB_URI);
@@ -389,6 +497,9 @@ async function seed() {
   await Skill.deleteMany({});
   await Skill.insertMany(skills);
 
+  await BlogPost.deleteMany({});
+  await BlogPost.insertMany(blogPosts);
+
   await SiteSettings.findOneAndUpdate(
     { singleton: "main" },
     {
@@ -396,7 +507,7 @@ async function seed() {
       heroLine1: "I build products that handle real traffic",
       heroLine2: "and real money.",
       heroSubline: "Hello I'm Imtiaz | Full-Stack Product Engineer",
-      email: "hello@imtiaztamim.com",
+      email: "itamim12202@gmail.com",
       githubUrl: "https://github.com/imtiaztamim",
       linkedinUrl: "https://linkedin.com/in/imtiaztamim",
       twitterUrl: "https://x.com/imtiaztamim",
@@ -408,6 +519,7 @@ async function seed() {
     projects: projects.length,
     experiences: experiences.length,
     skills: skills.length,
+    posts: blogPosts.length,
   });
 
   await mongoose.disconnect();

@@ -8,6 +8,8 @@ const experienceSchema = z.object({
   role: z.string().min(1).optional(),
   company: z.string().min(1).optional(),
   location: z.string().optional(),
+  websiteUrl: z.string().optional(),
+  logoUrl: z.string().optional(),
   startDate: z.string().min(1).optional(),
   endDate: z.string().optional(),
   current: z.boolean().optional(),

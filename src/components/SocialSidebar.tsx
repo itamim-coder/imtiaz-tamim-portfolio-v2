@@ -48,7 +48,7 @@ export function SocialSidebar() {
     },
     {
       name: "Email",
-      url: "mailto:hello@imtiaztamim.com",
+      url: "mailto:itamim12202@gmail.com",
       icon: (
         <svg
           className="h-4.5 w-4.5"

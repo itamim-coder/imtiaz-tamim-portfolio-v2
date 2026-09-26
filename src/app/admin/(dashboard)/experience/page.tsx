@@ -21,12 +21,19 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
+import { ImageUpload } from "@/components/admin/ImageUpload";
+import {
+  formatExperienceDate,
+  toMonthInput,
+} from "@/lib/experience-dates";
 
 type ExperienceItem = {
   _id: string;
   role: string;
   company: string;
   location: string;
+  websiteUrl?: string;
+  logoUrl?: string;
   startDate: string;
   endDate?: string;
   current: boolean;
@@ -40,6 +47,8 @@ const emptyItem = {
   role: "",
   company: "",
   location: "Remote",
+  websiteUrl: "",
+  logoUrl: "",
   startDate: "",
   endDate: "",
   current: false,
@@ -48,6 +57,12 @@ const emptyItem = {
   order: 0,
   published: true,
 };
+
+function displayRange(item: ExperienceItem) {
+  const start = formatExperienceDate(item.startDate);
+  if (item.current) return `${start} — Present`;
+  return item.endDate ? `${start} — ${formatExperienceDate(item.endDate)}` : start;
+}
 
 export default function AdminExperiencePage() {
   const [items, setItems] = useState<ExperienceItem[]>([]);
@@ -77,9 +92,11 @@ export default function AdminExperiencePage() {
     setForm({
       role: item.role,
       company: item.company,
-      location: item.location,
-      startDate: item.startDate,
-      endDate: item.endDate ?? "",
+      location: item.location ?? "Remote",
+      websiteUrl: item.websiteUrl ?? "",
+      logoUrl: item.logoUrl ?? "",
+      startDate: toMonthInput(item.startDate),
+      endDate: item.endDate ? toMonthInput(item.endDate) : "",
       current: item.current,
       description: item.description,
       tags: item.tags,
@@ -146,9 +163,7 @@ export default function AdminExperiencePage() {
               <TableRow key={item._id}>
                 <TableCell className="font-medium">{item.role}</TableCell>
                 <TableCell>{item.company}</TableCell>
-                <TableCell>
-                  {item.startDate} — {item.current ? "Present" : item.endDate}
-                </TableCell>
+                <TableCell>{displayRange(item)}</TableCell>
                 <TableCell className="text-right">
                   <div className="flex justify-end gap-2">
                     <Button size="sm" variant="outline" onClick={() => openEdit(item)}>
@@ -193,12 +208,45 @@ export default function AdminExperiencePage() {
                 />
               </div>
             </div>
+
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="space-y-2">
+                <Label htmlFor="location">Location</Label>
+                <Input
+                  id="location"
+                  value={form.location}
+                  onChange={(event) =>
+                    setForm((prev) => ({ ...prev, location: event.target.value }))
+                  }
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="websiteUrl">Company website</Label>
+                <Input
+                  id="websiteUrl"
+                  type="url"
+                  placeholder="https://company.com"
+                  value={form.websiteUrl}
+                  onChange={(event) =>
+                    setForm((prev) => ({ ...prev, websiteUrl: event.target.value }))
+                  }
+                />
+              </div>
+            </div>
+
+            <ImageUpload
+              label="Company logo"
+              hint="Upload to Cloudinary or paste a URL"
+              value={form.logoUrl}
+              onChange={(logoUrl) => setForm((prev) => ({ ...prev, logoUrl }))}
+            />
+
             <div className="grid gap-4 sm:grid-cols-3">
               <div className="space-y-2">
                 <Label htmlFor="startDate">Start</Label>
                 <Input
                   id="startDate"
-                  placeholder="2024"
+                  type="month"
                   value={form.startDate}
                   onChange={(event) =>
                     setForm((prev) => ({ ...prev, startDate: event.target.value }))
@@ -209,7 +257,7 @@ export default function AdminExperiencePage() {
                 <Label htmlFor="endDate">End</Label>
                 <Input
                   id="endDate"
-                  placeholder="Present"
+                  type="month"
                   value={form.endDate}
                   disabled={form.current}
                   onChange={(event) =>
@@ -221,12 +269,13 @@ export default function AdminExperiencePage() {
                 <Switch
                   checked={form.current}
                   onCheckedChange={(checked) =>
-                    setForm((prev) => ({ ...prev, current: checked }))
+                    setForm((prev) => ({ ...prev, current: checked, endDate: checked ? "" : prev.endDate }))
                   }
                 />
                 <Label>Current</Label>
               </div>
             </div>
+
             <div className="space-y-2">
               <Label htmlFor="description">Description</Label>
               <Textarea
@@ -241,6 +290,7 @@ export default function AdminExperiencePage() {
               <Label htmlFor="tags">Tags</Label>
               <Input
                 id="tags"
+                placeholder="Next.js, Prisma, Expo"
                 value={tagsInput}
                 onChange={(event) => setTagsInput(event.target.value)}
               />

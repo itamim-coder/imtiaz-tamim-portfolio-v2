@@ -26,10 +26,12 @@ import { SectionHeading } from "@/components/SectionHeading";
 | Section | `title` prop |
 |---------|----------------|
 | About | `About` |
+| Experience | `Experience` |
 | Skills | `Stack` |
 | Commit History | `Commits` |
 | Selected Work | `Work` |
 | Contact | `Contact` |
+| Blog | `Blog` |
 
 ## Do not
 
