@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GitHubCalendar } from "react-github-calendar";
 import { SectionHeading } from "@/components/SectionHeading";
 import { COMMIT_HISTORY_YEARS } from "@/lib/contributions";
@@ -13,9 +13,14 @@ const heatTheme = {
 export function CommitHistorySection() {
   const username = process.env.NEXT_PUBLIC_GITHUB_USERNAME?.trim();
   const years = COMMIT_HISTORY_YEARS;
+  const [mounted, setMounted] = useState(false);
   const [activeYear, setActiveYear] = useState<number>(years[0] || 2026);
   const [monthlyCommits, setMonthlyCommits] = useState<Record<string, number>>({});
   const [lastDataYear, setLastDataYear] = useState<number | null>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -108,18 +113,25 @@ export function CommitHistorySection() {
             <div className="pointer-events-none absolute -top-12 -right-12 z-0 h-48 w-48 select-none rounded-full bg-accent/5 blur-2xl" />
 
             <div className="commit-card-inner relative z-10 grid grid-cols-1 gap-8 items-center lg:grid-cols-12 lg:gap-6">
-              {/* Left Column - Github Calendar */}
-              <div className="overflow-x-auto lg:col-span-8">
-                <GitHubCalendar
-                  username={username}
-                  year={activeYear}
-                  colorScheme="light"
-                  theme={heatTheme}
-                  blockSize={12}
-                  blockMargin={4}
-                  fontSize={12}
-                  transformData={processContributions}
-                />
+              {/* Left Column - Github Calendar (client-only to avoid SSR mismatch) */}
+              <div className="overflow-x-auto lg:col-span-8 min-h-[140px]">
+                {mounted ? (
+                  <GitHubCalendar
+                    username={username}
+                    year={activeYear}
+                    colorScheme="light"
+                    theme={heatTheme}
+                    blockSize={12}
+                    blockMargin={4}
+                    fontSize={12}
+                    transformData={processContributions}
+                  />
+                ) : (
+                  <div
+                    className="h-[140px] w-full animate-pulse rounded-xl bg-line/30"
+                    aria-hidden
+                  />
+                )}
               </div>
 
               {/* Decorative divider inside grid */}
