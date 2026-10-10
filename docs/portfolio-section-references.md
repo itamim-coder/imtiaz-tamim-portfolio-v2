@@ -2,29 +2,59 @@
 
 **Site:** imtiaztamim.com · **Repo:** `D:/imtiaztamim-portfolio`  
 **Theme:** Light only (`#f4f6f8` bg · teal `#0f6e56` accent)  
-**Canonical:** this file · mirror in `imtiaztamim-portfolio/docs/portfolio-section-references.md`
+**Canonical:** this file · mirror in `agent-context/portfolio/portfolio-section-references.md`
 
 Use this doc when building — **one section = one reference row**. Do not mix layouts across sections.
 
+**Product status (Sep 29, 2026):** ✅ **Core build complete** — public site + admin CMS + Cloudinary + Resend contact + Vercel-ready. Remaining work is **content polish**, **deploy sync**, and **optional** motion/domain extras.
+
 ---
 
-## Page order (target)
+## Page order (live)
 
 | # | Section | Anchor | Status |
 |---|---------|--------|--------|
 | 0 | Loader | — | ✅ Built |
-| 1 | Navbar + Hero | — | ✅ Built (animation planned) |
-| 2 | Selected Work | `#work` | ✅ Built (FlawlessNitin zig-zag · video · icons) |
-| 3 | Portfolio grid | `#portfolio` | ❌ Not built |
+| 1 | Navbar + Hero | — | ✅ Built · ⚪ Hero motion **optional** |
+| 2 | Selected Work | `#work` | ✅ Built |
+| 3 | Portfolio grid | `#portfolio` | ✅ Built |
 | 4 | About | `#about` | ✅ Built |
-| 5 | Experience | `#experience` | ✅ Built |
-| 6 | Skills | `#skills` | ✅ Built (nskr + icons · no certs) |
+| 5 | Experience | `#experience` | ✅ Built (Kamil layout · CMS dates/logo/website) |
+| 6 | Skills | `#skills` | ✅ Built |
 | 7 | Commit History | `#commit-history` | ✅ Built |
-| 8 | Blog | `#blog` / `/blog` | ✅ Built |
-| 9 | Contact | `#contact` | ❌ Not built |
-| 10 | Case studies | `/work/[slug]` | ✅ Built (features + video slots) |
+| 8 | Blog | `#blog` / `/blog` / `/blog/[slug]` | ✅ Built · Cloudinary covers |
+| 9 | Contact | `#contact` | ✅ Built (djayanth · Resend) |
+| 10 | Case studies | `/work/[slug]` | ✅ Built · feature media upload |
 
-**Current homepage:** Loader → Hero → Selected Work → Portfolio → About → **Experience** → Skills → Commits → Contact
+**Homepage:** Loader → Hero → Work → Portfolio → About → Experience → Skills → Commits → Blog → Contact
+
+---
+
+## Build vs optional (Sep 29)
+
+| Area | Status | Notes |
+|------|--------|--------|
+| Public sections | ✅ Done | All homepage sections live |
+| Admin CMS | ✅ Done | Projects · Experience · Skills · Blog · Settings |
+| Cloudinary | ✅ Done | Covers · feature demos · signed video upload |
+| Tech tags picker | ✅ Done | Pick/drag from skills + freehand |
+| Contact email | ✅ Done | Resend · honeypot |
+| Deploy (Vercel) | ✅ Live | Redeploy after local CMS/UI changes |
+| Project covers / demos | 🟡 Content | Re-upload any broken Cloudinary URLs · Save |
+| Cutco Live link | 🟡 Content | Clear or replace dead demo URL |
+| **imtiaztamim.com** domain | ⚪ Optional | Point DNS → Vercel when ready |
+| Hero intro motion | ⚪ Optional | Refs below — not blocking hire |
+| Resend custom domain | ⚪ Optional | Better deliverability than test-from |
+| Hero/loader polish | ⚪ Optional | Melvin welcome text · Aceternity max 1–2 |
+
+---
+
+## What to start next (priority)
+
+1. **Content accuracy (do first)** — Fix covers (re-upload → Save), Cutco Live truth, featured project blurbs/screenshots.
+2. **Ship latest code** — Push + Vercel redeploy so tag picker / media upload / cover fixes are live.
+3. **Custom domain** — Attach **imtiaztamim.com** in Vercel Domains when DNS is ready.
+4. **Only then optional motion** — Hero stagger from Min Khant if you want polish for LinkedIn demos.
 
 ---
 
@@ -35,7 +65,7 @@ Use this doc when building — **one section = one reference row**. Do not mix l
 | **Status** | ✅ Built |
 | **Component** | `src/components/InitialLoader.tsx` · `GeometricMark.tsx` |
 | **Primary reference** | [anish7.me](https://www.anish7.me/) |
-| **Secondary reference** | [melvinjonesrepol.com](https://www.melvinjonesrepol.com/) — welcome/intro motion polish only |
+| **Secondary reference** | [melvinjonesrepol.com](https://www.melvinjonesrepol.com/) — welcome/intro motion polish only · **optional** |
 
 ### Take from reference
 - Geometric monogram **draw → solid fill → exit** (~1–1.5s max)
@@ -47,21 +77,17 @@ Use this doc when building — **one section = one reference row**. Do not mix l
 - “100% remaining” progress gimmicks
 - Long cinematic intros (>1.5s)
 
-### Melvin (later polish)
-- Optional welcome text motion after T mark
-- Keep total entry under ~1.5s
-
 ---
 
 ## 1. Navbar + Hero / banner
 
 | | |
 |---|---|
-| **Status** | ✅ Layout built · ⏳ Banner animation planned |
+| **Status** | ✅ Layout built · ⚪ Banner animation **optional** (not required) |
 | **Components** | `Navbar.tsx` · `LocalStatus.tsx` · `Hero.tsx` · `SocialSidebar.tsx` |
 | **Primary reference (layout)** | [dhirajbhawsar.in](https://dhirajbhawsar.in/) · [hireme](https://dhirajbhawsar.in/hireme) |
-| **Banner ideas (Jul 24)** | [nishmika.me](https://www.nishmika.me/) |
-| **Banner animation (planned)** | [min-khant-kyaw-portfolio.vercel.app](https://min-khant-kyaw-portfolio.vercel.app/) |
+| **Banner ideas** | [nishmika.me](https://www.nishmika.me/) |
+| **Banner animation (optional)** | [min-khant-kyaw-portfolio.vercel.app](https://min-khant-kyaw-portfolio.vercel.app/) |
 | **Social in banner (optional)** | [kaushalrajgupta.is-a.dev](https://kaushalrajgupta.is-a.dev/) |
 
 ### Take from Dhiraj
@@ -72,12 +98,9 @@ Use this doc when building — **one section = one reference row**. Do not mix l
 - Hero: centered headline + subline + dual CTAs (Connect + email copy)
 - Soft oval gradient washes behind hero
 
-### Take from Min Khant (planned)
+### Take from Min Khant (optional later)
 - Subtle **hero intro animation** after loader exits
 - Text/CTA fade or stagger — light motion only
-
-### Take from Kaushal (optional)
-- GitHub · LinkedIn · email icons **in or near hero** (we already have `SocialSidebar` on the right)
 
 ### Our copy (hero)
 - Line 1: *I build products that handle real traffic*
@@ -100,9 +123,9 @@ Use this doc when building — **one section = one reference row**. Do not mix l
 | **Status** | ✅ Built |
 | **Anchor** | `#work` |
 | **Component** | `SelectedWorkSection.tsx` · case study `/work/[slug]` |
-| **Primary layout (Jul 25)** | [flawlessnitin.com/#projects](https://flawlessnitin.com/#projects) — zig-zag cards · **video** thumbnail · **icon** tech pills · Case study + Live |
+| **Primary layout** | [flawlessnitin.com/#projects](https://flawlessnitin.com/#projects) — zig-zag · video · icon pills · Case study + Live |
 | **Also** | [ilans.net](https://ilans.net/) structure · [newtonyuan.com](https://newtonyuan.com/) featured emphasis |
-| **Data** | MongoDB `Project` `featured: true` · admin `/admin/projects` (`videoUrl`, `highlight`, `year`, `category`, `statusLabel`) |
+| **Data** | MongoDB `Project` `featured: true` · admin `/admin/projects` |
 
 ### Take from FlawlessNitin
 - Alternating media / copy columns
@@ -116,11 +139,6 @@ Use this doc when building — **one section = one reference row**. Do not mix l
 - Teal/light brand · CMS-managed fields
 - Title: Work not “Projects”
 
-### Our featured projects (seed)
-1. **Jetixia** — multi-supplier booking + payments
-2. **Kornest** — team collab + mediasoup VPS
-3. **Cutco** — web + mobile energy switching
-
 ### Do not copy
 - Purple Live dots / heavy 3D motion gimmicks
 - Cloning FlawlessNitin copy
@@ -131,21 +149,15 @@ Use this doc when building — **one section = one reference row**. Do not mix l
 
 | | |
 |---|---|
-| **Status** | ❌ Not built |
-| **Anchor** | `#portfolio` (or same `#work` block below featured) |
+| **Status** | ✅ Built |
+| **Anchor** | `#portfolio` |
+| **Component** | `PortfolioGridSection.tsx` |
 | **Primary reference** | [ilans.net](https://ilans.net/) — section **02 More projects** |
 | **Data** | MongoDB `Project` where `published: true` and `featured: false` |
 
 ### Take from Ilan
 - Smaller grid cards for remaining work
-- Title · one-line blurb · stack tags · GitHub / case study links
-- Optional grouping: Personal / Client work (later)
-
-### Our projects (full list)
-Jetixia · Kornest · Cutco · EchoVoice · Canvasive (+ Moynaa optional)
-
-### Do not duplicate
-- Same long blurbs as Selected Work — shorter here
+- Title · blurb · stack tags · GitHub / live links
 
 ---
 
@@ -159,19 +171,10 @@ Jetixia · Kornest · Cutco · EchoVoice · Canvasive (+ Moynaa optional)
 | **Primary reference** | [Hussam Barqawi](https://portfolio-kappa-mauve-pfdsqi3ae7.vercel.app/) |
 
 ### Take from Hussam (adapted)
-- Section **headline** (one strong line)
-- **Paragraph** — who you are + what you ship (production SaaS, not AI buzzwords)
-- **3 numbered principle cards** (01 / 02 / 03)
-- **Stats bar** — years · products · APIs · clients · tech (honest numbers only)
-
-### Our principles
-1. **Production-first**
-2. **Integration-heavy**
-3. **End-to-end ownership**
+- Section **headline** + **paragraph** + **3 numbered principle cards** + **stats bar**
 
 ### Do not copy
-- Dark theme · gold accents
-- AI-engineer copy (RAG, agents, frontier models)
+- Dark theme · gold accents · AI-engineer buzzwords
 
 ---
 
@@ -183,21 +186,7 @@ Jetixia · Kornest · Cutco · EchoVoice · Canvasive (+ Moynaa optional)
 | **Anchor** | `#experience` |
 | **Component** | `src/components/ExperienceSection.tsx` |
 | **Primary reference** | [kamilmazurek.pl](https://kamilmazurek.pl/#top) |
-| **Data** | MongoDB `Experience` · admin `/admin/experience` |
-
-### Take from Kamil
-- Chronological **job blocks**
-- Company · date range · role title
-- Short bullet paragraph (ownership, not product feature lists)
-- Optional: location · Remote
-
-### Our entries (seed)
-- **Jetixia / Booking Desk** — 2024 – Present (current)
-- **TrustGuid** — Apr 2025 – Sep 2026 (ended)
-- **Moynaa** — optional third row
-
-### Do not duplicate
-- Project card content from Selected Work / Portfolio
+| **Data** | MongoDB `Experience` · admin `/admin/experience` (dates · logo · website) |
 
 ---
 
@@ -207,21 +196,9 @@ Jetixia · Kornest · Cutco · EchoVoice · Canvasive (+ Moynaa optional)
 |---|---|
 | **Status** | ✅ Built |
 | **Anchor** | `#skills` |
-| **Component** | `imtiaztamim-portfolio/src/components/SkillsSection.tsx` |
-| **CMS** | `/admin/skills` · MongoDB `Skill` · `/api/skills` |
-| **Title** | `SectionHeading` → **STACK · STACK** (no serial · agent rule) |
-| **Primary layout** | [nskr.dev](https://www.nskr.dev/) — category columns · pills · badge |
-| **Our addition** | Icon in each pill |
-| **Not on page** | Certifications (resume / LinkedIn only) |
-
-### Take from nskr
-- STACK · STACK title · category columns · pill tags · production badge
-
-### Our twist
-- Shared section title for every section · teal · icon pills · no serial · no certs · CMS `/admin/skills`
-
-### Do not copy
-- Orange branding · kitchen-sink lists · homepage cert block
+| **Component** | `SkillsSection.tsx` |
+| **CMS** | `/admin/skills` · also feeds **project tag picker** |
+| **Primary layout** | [nskr.dev](https://www.nskr.dev/) |
 
 ---
 
@@ -231,20 +208,9 @@ Jetixia · Kornest · Cutco · EchoVoice · Canvasive (+ Moynaa optional)
 |---|---|
 | **Status** | ✅ Built |
 | **Anchor** | `#commit-history` |
-| **Component** | `src/components/CommitHistorySection.tsx` |
+| **Component** | `CommitHistorySection.tsx` |
 | **Primary reference** | [baghel.dev](https://www.baghel.dev/) |
-
-### Take from baghel
-- `react-github-calendar` inside **neo cards** (rounded border + offset shadow)
-- **One card per year** · years **2024–2026**
-- Teal heat scale matching site accent
-- Reversed week order in card
-
-### Config
-- `NEXT_PUBLIC_GITHUB_USERNAME` in `.env.local`
-
-### Do not CMS
-- Stays automatic from GitHub — not in admin dashboard
+| **Config** | `NEXT_PUBLIC_GITHUB_USERNAME` |
 
 ---
 
@@ -252,17 +218,9 @@ Jetixia · Kornest · Cutco · EchoVoice · Canvasive (+ Moynaa optional)
 
 | | |
 |---|---|
-| **Status** | ✅ Built (`BlogSection` · `/blog` · Cloudinary upload) |
-| **Routes** | `/blog` · `/blog/[slug]` (planned) |
-| **Data** | MongoDB `BlogPost` · admin `/admin/blog` |
-| **Reference** | No single locked site — general section rhythm from collected list |
-
-### Content direction
-- Proof posts for clients + recruiters (Jetixia API unification · Kornest WebRTC · etc.)
-- Teaser block on homepage: 2–3 latest published posts
-
-### Secondary inspiration
-- [karanchhunchha.in](https://www.karanchhunchha.in/) — general structure only
+| **Status** | ✅ Built |
+| **Routes** | Homepage teaser · `/blog` · `/blog/[slug]` |
+| **Data** | MongoDB `BlogPost` · admin `/admin/blog` · Cloudinary covers |
 
 ---
 
@@ -270,24 +228,12 @@ Jetixia · Kornest · Cutco · EchoVoice · Canvasive (+ Moynaa optional)
 
 | | |
 |---|---|
-| **Status** | ❌ Not built |
+| **Status** | ✅ Built |
 | **Anchor** | `#contact` |
+| **Components** | `ContactSection.tsx` · `ContactForm.tsx` · `/api/contact` |
 | **Primary reference** | [djayanth.site](https://djayanth.site/) |
 | **Tone (secondary)** | [gabrielthecode.com/#contact](https://gabrielthecode.com/#contact) |
-
-### Take from djayanth
-- Clean **hire-me block** at page bottom
-- Headline + short pitch
-- Email CTA · social row (GitHub · LinkedIn)
-- Light theme · matches site teal
-
-### Take from Gabriel (tone only)
-- Strong headline (*Let's build something…*)
-- Copy-email interaction
-- Availability line (*Remote · open to contract*)
-
-### CMS
-- Email + social URLs from admin **Settings**
+| **Mail** | Resend (`RESEND_API_KEY` · `CONTACT_TO_EMAIL`) |
 
 ---
 
@@ -296,15 +242,9 @@ Jetixia · Kornest · Cutco · EchoVoice · Canvasive (+ Moynaa optional)
 | | |
 |---|---|
 | **Status** | ✅ Built |
-| **Routes** | `/work/[slug]` · e.g. `/work/kornest` |
-| **Layout** | Overview · Role / Problem / Outcome · **Features** zig-zag (details + highlights + video slot) |
-| **Videos** | Per-feature `videoUrl` for cut-by-cut demos later · empty = placeholder |
-| **CMS** | `/admin/projects` — features JSON · role · problem · outcome |
-
-### Seeded depth
-1. **Jetixia** — 5 features (suppliers, unified booking, YBS, FIB, verticals)
-2. **Kornest** — 6 features (Kanban, chat, docs, mediasoup, leave, VPS ops)
-3. **Cutco** — 5 features (compare, switch, web, mobile, shared backend)
+| **Routes** | `/work/[slug]` |
+| **Media** | Cover `imageUrl` · header `videoUrl` · per-feature demo upload (Cloudinary) |
+| **CMS** | `/admin/projects` — features · role · problem · outcome · tech tags (skill pick + freehand) |
 
 ---
 
@@ -313,13 +253,13 @@ Jetixia · Kornest · Cutco · EchoVoice · Canvasive (+ Moynaa optional)
 | | |
 |---|---|
 | **URL** | `/admin/login` |
-| **Stack** | MongoDB · Mongoose · shadcn/ui |
-| **DB** | `portfolio` on Atlas |
+| **Stack** | MongoDB · Mongoose · shadcn/ui · Cloudinary |
 
 | Admin page | Public section | Model |
 |------------|----------------|-------|
-| Projects | Selected Work + Portfolio | `Project` · `featured` flag |
+| Projects | Work + Portfolio + case studies | `Project` |
 | Experience | Experience | `Experience` |
+| Skills | Stack + project tag picker | `Skill` |
 | Blog | Blog | `BlogPost` |
 | Settings | Hero · Contact · SEO | `SiteSettings` |
 
@@ -331,9 +271,10 @@ Jetixia · Kornest · Cutco · EchoVoice · Canvasive (+ Moynaa optional)
 
 | Site | Use |
 |------|-----|
+| [min-khant-kyaw-portfolio.vercel.app](https://min-khant-kyaw-portfolio.vercel.app/) | Optional hero intro motion |
+| [nishmika.me](https://www.nishmika.me/) | Optional banner motion ideas |
+| [melvinjonesrepol.com](https://www.melvinjonesrepol.com/) | Optional loader welcome text |
 | [gazimdanas.netlify.app](https://gazimdanas.netlify.app/) | General mood |
-| [karanchhunchha.in](https://www.karanchhunchha.in/) | General reference |
-| [macos-kuldeeprajput.vercel.app](https://macos-kuldeeprajput.vercel.app/) | macOS UI experiment — **do not** replace light theme |
 | [ui.aceternity.com](https://ui.aceternity.com/components) | Max 1–2 motion pieces later |
 | [brittanychiang.com](https://brittanychiang.com/) | Recruiter intro pattern (optional) |
 
@@ -345,8 +286,9 @@ Jetixia · Kornest · Cutco · EchoVoice · Canvasive (+ Moynaa optional)
 2. **Brand:** Imtiaz Tamim · imtiaztamim.com
 3. **Mix references** — don’t clone one site 1:1
 4. **Audience:** clients (Upwork) + recruiters — proof before fluff
-5. **Rejected:** portfolio voting section · large certifications homepage block
+5. **Rejected:** portfolio voting · large certifications homepage block
 6. **Loader max** ~1–1.5s
+7. **Optional ≠ backlog debt** — hero motion / domain / Resend domain only when content is solid
 
 ---
 
@@ -356,16 +298,17 @@ Jetixia · Kornest · Cutco · EchoVoice · Canvasive (+ Moynaa optional)
 |---------|-------------|--------|
 | Loader | anish7.me | ✅ |
 | Nav + Hero | dhirajbhawsar.in | ✅ |
-| Hero animation | min-khant-kyaw-portfolio.vercel.app · nishmika.me | ⏳ |
-| Selected Work | flawlessnitin.com/#projects · video + icons | ✅ |
-| Portfolio | ilans.net (02) | ❌ |
+| Hero animation | min-khant-kyaw · nishmika | ⚪ Optional |
+| Selected Work | flawlessnitin.com/#projects | ✅ |
+| Portfolio | ilans.net (02) | ✅ |
 | About | Hussam Vercel | ✅ |
 | Experience | kamilmazurek.pl | ✅ |
-| Skills | nskr.dev · CMS `/admin/skills` | ✅ |
+| Skills | nskr.dev · CMS | ✅ |
 | Commit History | baghel.dev | ✅ |
-| Contact | djayanth.site | ❌ |
-| Blog | — | ❌ public |
+| Blog | — | ✅ |
+| Contact | djayanth.site · Resend | ✅ |
+| Case studies | — · Cloudinary media | ✅ |
 
 ---
 
-*Last updated: Jul 24, 2026*
+*Last updated: Sep 29, 2026*

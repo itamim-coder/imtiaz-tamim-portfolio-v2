@@ -63,9 +63,9 @@ function PortfolioProjectCard({ project }: { project: PortfolioProject }) {
 
           {/* Project Image Thumbnail */}
           <div className="mt-2 overflow-hidden rounded-2xl border border-line/45 aspect-[16/10] bg-line/10 relative">
-            {project.imageUrl ? (
+            {project.imageUrl?.trim() ? (
               <img
-                src={project.imageUrl}
+                src={project.imageUrl.trim()}
                 alt=""
                 className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 loading="lazy"

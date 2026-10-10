@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Plus, Pencil, Trash2, GripVertical, Code2, ExternalLink, GitBranch, Video, CheckCircle2, AlertCircle } from "lucide-react";
+import { Plus, Pencil, Trash2, GripVertical, Code2, ExternalLink, GitBranch, CheckCircle2, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -22,7 +22,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
-import { ImageUpload } from "@/components/admin/ImageUpload";
+import { ImageUpload, MediaUpload } from "@/components/admin/ImageUpload";
+import { TechTagsInput } from "@/components/admin/TechTagsInput";
 import {
   Select,
   SelectContent,
@@ -30,8 +31,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { techIconSlug } from "@/lib/techIcons";
-import { SkillIcon } from "@/components/SkillIcon";
 
 type ProjectFeature = {
   title: string;
@@ -106,7 +105,6 @@ export default function AdminProjectsPage() {
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState<Project | null>(null);
   const [form, setForm] = useState(emptyProject);
-  const [tagsInput, setTagsInput] = useState("");
   const [features, setFeatures] = useState<ProjectFeature[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -130,7 +128,6 @@ export default function AdminProjectsPage() {
   function openCreate() {
     setEditing(null);
     setForm(emptyProject);
-    setTagsInput("");
     setFeatures([]);
     setOpen(true);
   }
@@ -161,7 +158,6 @@ export default function AdminProjectsPage() {
       order: project.order,
       published: project.published,
     });
-    setTagsInput(project.tags.join(", "));
     // Sort features on edit
     const sortedFeats = [...(project.features ?? [])].sort(
       (a, b) => (a.order ?? 0) - (b.order ?? 0)
@@ -180,10 +176,7 @@ export default function AdminProjectsPage() {
       ...form,
       slug: form.slug.trim() || slugify(form.title),
       company: form.company.trim(),
-      tags: tagsInput
-        .split(",")
-        .map((tag) => tag.trim())
-        .filter(Boolean),
+      tags: form.tags.map((tag) => tag.trim()).filter(Boolean),
       features,
     };
 
@@ -277,12 +270,6 @@ export default function AdminProjectsPage() {
       loadProjects();
     }
   };
-
-  // tags parser for simpleicons logo previewing
-  const tagsParsed = tagsInput
-    .split(",")
-    .map((tag) => tag.trim())
-    .filter(Boolean);
 
   return (
     <div className="space-y-6">
@@ -719,93 +706,52 @@ export default function AdminProjectsPage() {
                         />
                       </div>
 
-                      <div className="grid gap-3 grid-cols-2">
-                        <div className="space-y-1.5">
-                          <Label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Highlights / Tech Stack (comma separated)</Label>
-                          <Input
-                            placeholder="e.g. SQLite, CRDTs, IndexDB"
-                            className="h-9 rounded-lg border-line text-xs"
-                            value={(feat.highlights ?? []).join(", ") || ""}
-                            onChange={(e) => {
-                              const arr = e.target.value.split(",").map(h => h.trim()).filter(Boolean);
-                              handleUpdateFeature(idx, "highlights", arr);
-                            }}
-                          />
-                        </div>
-                        <div className="space-y-1.5">
-                          <Label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Demo Video / Media URL</Label>
-                          <Input
-                            placeholder="https://.../offline-sync.mp4"
-                            className="h-9 rounded-lg border-line text-xs font-mono"
-                            value={feat.videoUrl ?? ""}
-                            onChange={(e) => handleUpdateFeature(idx, "videoUrl", e.target.value)}
-                          />
-                        </div>
+                      <div className="space-y-1.5">
+                        <Label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Highlights / Tech Stack (comma separated)</Label>
+                        <Input
+                          placeholder="e.g. SQLite, CRDTs, IndexDB"
+                          className="h-9 rounded-lg border-line text-xs"
+                          value={(feat.highlights ?? []).join(", ") || ""}
+                          onChange={(e) => {
+                            const arr = e.target.value.split(",").map(h => h.trim()).filter(Boolean);
+                            handleUpdateFeature(idx, "highlights", arr);
+                          }}
+                        />
                       </div>
+
+                      <MediaUpload
+                        compact
+                        kind="media"
+                        label="Demo video / media"
+                        hint="Upload image or video to Cloudinary (mp4, webm, jpg, png…)"
+                        value={feat.videoUrl ?? ""}
+                        onChange={(url) => handleUpdateFeature(idx, "videoUrl", url)}
+                      />
                     </div>
                   ))}
                 </div>
               )}
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="tags" className="text-xs font-bold uppercase tracking-wider text-muted">Technologies & Tags (comma separated)</Label>
-              <Input
-                id="tags"
-                placeholder="React, Next.js, Redux, PostgreSQL"
-                className="rounded-xl border-line"
-                value={tagsInput}
-                onChange={(event) => setTagsInput(event.target.value)}
-              />
-
-              {/* Real-time brand logo visualizer */}
-              {tagsParsed.length > 0 && (
-                <div className="rounded-xl border border-line bg-line/10 p-3 mt-1.5">
-                  <Label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground block mb-2">Resolved Brand Icons Preview:</Label>
-                  <div className="flex flex-wrap gap-2">
-                    {tagsParsed.map((tag) => {
-                      const iconKey = techIconSlug(tag);
-                      return (
-                        <span key={tag} className="inline-flex items-center gap-1.5 rounded-lg border border-line bg-background px-2.5 py-1.5 text-xs font-medium text-foreground shadow-sm">
-                          <SkillIcon icon={iconKey} name={tag} className="h-3.5 w-3.5" />
-                          {tag}
-                        </span>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
-            </div>
+            <TechTagsInput
+              value={form.tags}
+              onChange={(tags) => setForm((prev) => ({ ...prev, tags }))}
+            />
 
             <ImageUpload
               label="Poster / cover image"
-              hint="Upload to Cloudinary or paste a URL"
+              hint="Upload to Cloudinary — do not paste a folder-only URL"
               value={form.imageUrl ?? ""}
               onChange={(imageUrl) => setForm((prev) => ({ ...prev, imageUrl }))}
             />
 
-            <div className="space-y-1.5">
-              <Label htmlFor="videoUrl" className="text-xs font-bold uppercase tracking-wider text-muted">Background Loop Video (case studies header)</Label>
-              <div className="flex gap-2">
-                <Input
-                  id="videoUrl"
-                  placeholder="https://…/background-video.mp4"
-                  className="rounded-xl border-line font-mono"
-                  value={form.videoUrl}
-                  onChange={(event) =>
-                    setForm((prev) => ({
-                      ...prev,
-                      videoUrl: event.target.value,
-                    }))
-                  }
-                />
-                {form.videoUrl && (
-                  <div className="flex h-10 w-10 items-center justify-center text-accent rounded-lg border border-line bg-line/10 shrink-0">
-                    <Video className="h-4.5 w-4.5 animate-pulse" />
-                  </div>
-                )}
-              </div>
-            </div>
+            <MediaUpload
+              kind="media"
+              label="Background loop video / media"
+              hint="Case study header — upload video or image to Cloudinary"
+              value={form.videoUrl ?? ""}
+              onChange={(videoUrl) => setForm((prev) => ({ ...prev, videoUrl }))}
+            />
 
             <div className="grid gap-4 sm:grid-cols-3">
               <div className="col-span-2 space-y-1.5">

@@ -70,6 +70,8 @@ function TechPill({ tag }: { tag: string }) {
 
 function ProjectMedia({ project }: { project: FeaturedProject }) {
   const badge = project.statusLabel?.trim() || (project.liveUrl ? "Live" : "");
+  const imageUrl = project.imageUrl?.trim() || "";
+  const videoUrl = project.videoUrl?.trim() || "";
 
   return (
     <div className="relative overflow-hidden rounded-2xl bg-line/20 aspect-[16/10] sm:aspect-[5/3] border border-line/45 shadow-inner">
@@ -85,20 +87,20 @@ function ProjectMedia({ project }: { project: FeaturedProject }) {
 
       {/* Frame Visual content */}
       <div className="relative w-full h-[calc(100%-24px)] overflow-hidden">
-        {project.videoUrl ? (
+        {videoUrl ? (
           <video
             className="h-full w-full object-cover"
-            src={project.videoUrl}
-            poster={project.imageUrl || undefined}
+            src={videoUrl}
+            poster={imageUrl || undefined}
             autoPlay
             muted
             loop
             playsInline
             preload="metadata"
           />
-        ) : project.imageUrl ? (
+        ) : imageUrl ? (
           <img
-            src={project.imageUrl}
+            src={imageUrl}
             alt=""
             className="h-full w-full object-cover"
             loading="lazy"

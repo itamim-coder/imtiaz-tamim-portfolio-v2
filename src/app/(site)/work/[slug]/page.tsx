@@ -263,20 +263,20 @@ export default async function CaseStudyPage({ params }: PageProps) {
 
               {/* Media Content */}
               <div className="relative w-full h-[calc(100%-24px)] overflow-hidden">
-                {project.videoUrl ? (
+                {project.videoUrl?.trim() ? (
                   <video
                     className="h-full w-full object-cover"
-                    src={project.videoUrl}
-                    poster={project.imageUrl || undefined}
+                    src={project.videoUrl.trim()}
+                    poster={project.imageUrl?.trim() || undefined}
                     autoPlay
                     muted
                     loop
                     playsInline
                     preload="metadata"
                   />
-                ) : project.imageUrl ? (
+                ) : project.imageUrl?.trim() ? (
                   <img
-                    src={project.imageUrl}
+                    src={project.imageUrl.trim()}
                     alt=""
                     className="h-full w-full object-cover"
                     loading="lazy"
